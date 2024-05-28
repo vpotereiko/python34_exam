@@ -22,7 +22,7 @@
 #  Правильне використання патернів проєктування, SOLID-принципів, механізмів
 #  тестування під час реалізації завдання дозволить отримати більш високу оцінку.
 
-
+from database import Database
 from enum import Enum
 
 
@@ -78,27 +78,15 @@ class Record:
         self.date = date
 
 
-class Database:
-    _instances = {}
-    operations = list[Operation]
-    categories = list[Category]
-    reports = list[Report]
-    records = list[Record]
 
-    def __new__(cls, *args, **kwargs):
-        """
-        Possible changes to the value of the `__init__` argument do not affect
-        the returned instance.
-        """
-        if cls not in cls._instances:
-            instance = super().__new__()
-            cls._instances[cls] = instance
-        return cls._instances[cls]
 
 
 class User:
-    db = Database()
+    db = Database.get_instance()
 
 
 if __name__ == '__main__':
-    pass
+    # Singleton
+    user_db = Database.get_instance()
+    print(user_db)
+    #
