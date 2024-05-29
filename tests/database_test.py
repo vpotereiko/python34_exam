@@ -5,18 +5,18 @@ from database import Database
 
 class DatabaseTest(TestCase):
     def setUp(self):
-        pass
+        Database.instance = None
 
     def tearDown(self):
-        pass
+        Database.instance = None
+
+    # Negative
+    def test_database_get_instance_negative(self):
+        self.assertIsNone(Database.instance)
 
     # Positive
     def test_database_get_instance(self):
         self.assertIsNotNone(Database.get_instance())
-
-    # Negative
-    # def test_database_get_instance_negative(self):
-    #     self.assertIsNone(Database.get_instance())
 
 
 if __name__ == '__main__':

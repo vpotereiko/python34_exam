@@ -3,22 +3,30 @@ class Database:
     """
     Singleton pattern
     """
-    __instances = None
+    __instance = None
     operations = list
     categories = list
     reports = list
     records = list
 
+    @property
+    def instance(self):
+        return self.__instance
+
+    @instance.setter
+    def instance(self, vals):
+        self.__instance = vals
+
     @staticmethod
     def get_instance():
-        if Database.__instances is None:
-            Database.__instances = Database()
-        return Database.__instances
+        if Database.__instance is None:
+            Database.__instance = Database()
+        return Database.__instance
 
     def __new__(cls, file=None):
-        if cls.__instances is None:
-            cls.__instances = super().__new__(cls)
-        return cls.__instances
+        if cls.__instance is None:
+            cls.__instance = super().__new__(cls)
+        return cls.__instance
 
     def __init__(self):
         from main import Operation, Category, Report, Record
